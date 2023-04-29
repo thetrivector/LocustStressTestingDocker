@@ -1,0 +1,24 @@
+version: '3'
+
+volumes:
+  locust:
+    external: true
+
+services:
+  master:
+    image: locustio/locust
+    ports:
+     - "8089:8089"
+    volumes:
+      - locust:/home/locust/
+    working_dir: /home/locust/
+    env_file:
+      - ./configurations/master.env
+
+  worker:
+    image: locustio/locust
+    volumes:
+      - locust:/home/locust/
+    working_dir: /home/locust/
+    env_file:
+      - ./configurations/worker.env
